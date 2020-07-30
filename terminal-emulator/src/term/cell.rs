@@ -125,7 +125,7 @@ impl Cell {
     #[inline]
     pub fn chars(&self) -> [char; MAX_ZEROWIDTH_CHARS + 1] {
         unsafe {
-            let mut chars = [std::mem::uninitialized(); MAX_ZEROWIDTH_CHARS + 1];
+            let mut chars = [std::mem::MaybeUninit::uninit(); MAX_ZEROWIDTH_CHARS + 1];
             std::ptr::write(&mut chars[0], self.c);
             std::ptr::copy_nonoverlapping(
                 self.extra.as_ptr(),
